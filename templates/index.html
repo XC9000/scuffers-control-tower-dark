@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scuffers AI Ops Control Tower</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <div class="logo">SCUFFERS <span class="accent">OPS</span></div>
+                <div class="divider"></div>
+                <span class="page-title">AI Control Tower</span>
+            </div>
+            <div class="topbar-right">
+                <button class="webhook-btn" id="webhook-btn">
+                    <i class="fas fa-plug"></i> Conectar API
+                </button>
+                <div class="live-badge"><span class="pulse"></span> LIVE DATA</div>
+                <div class="timestamp" id="timestamp"></div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Loading State -->
+            <div id="loading-screen" class="loading-screen">
+                <div class="terminal-box">
+                    <div class="terminal-header">
+                        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                        <span class="terminal-title">scuffers_ops_engine</span>
+                    </div>
+                    <div class="terminal-body" id="boot-terminal">
+                        <p>> Booting AI Ops Control Tower...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard -->
+            <div id="dashboard" class="dashboard hidden">
+                <!-- Context Banner -->
+                <div class="context-banner">
+                    <div class="banner-icon"><i class="fas fa-rocket"></i></div>
+                    <div class="banner-text">
+                        <strong>Lanzamiento Colección Cápsula — En curso</strong>
+                        <span>Datos en tiempo real · 180 pedidos · 22 SKUs · 5 campañas activas</span>
+                    </div>
+                    <div class="banner-question">¿Qué debería hacer ahora mismo el equipo de operaciones?</div>
+                </div>
+
+                <!-- Data Quality Alerts -->
+                <div class="quality-alerts" id="quality-alerts"></div>
+
+                <!-- Stats Row -->
+                <section class="stats-row" id="stats-row"></section>
+
+                <!-- Three-Column Layout -->
+                <div class="grid-3col">
+                    <!-- Left: Prioritized Actions -->
+                    <section class="panel actions-panel">
+                        <div class="panel-header">
+                            <h2><i class="fas fa-bolt"></i> Top 10 Acciones Prioritarias</h2>
+                            <button class="export-btn" id="export-json-btn"><i class="fas fa-download"></i> JSON</button>
+                        </div>
+                        <div class="actions-list" id="actions-list"></div>
+                    </section>
+
+                    <!-- Center: Live Order Feed -->
+                    <section class="panel feed-panel">
+                        <div class="panel-header">
+                            <h2><i class="fas fa-stream"></i> Pedidos en Vivo</h2>
+                            <div class="feed-counter">
+                                <span class="pulse-sm"></span>
+                                <span id="feed-count">0</span> procesados
+                            </div>
+                        </div>
+                        <div class="live-feed" id="live-feed"></div>
+                    </section>
+
+                    <!-- Right: Inventory & Forecast -->
+                    <div class="right-col">
+                        <section class="panel">
+                            <div class="panel-header">
+                                <h2><i class="fas fa-boxes-stacked"></i> Inventario</h2>
+                            </div>
+                            <div class="inv-table-wrap">
+                                <table class="data-table" id="inventory-table">
+                                    <thead><tr>
+                                        <th>SKU</th><th>Disp.</th><th>ST%</th><th>Estado</th>
+                                    </tr></thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <section class="panel">
+                            <div class="panel-header">
+                                <h2><i class="fas fa-chart-line"></i> Forecast 2h</h2>
+                            </div>
+                            <div class="inv-table-wrap">
+                                <table class="data-table" id="forecast-table">
+                                    <thead><tr>
+                                        <th>SKU</th><th>Demanda</th><th>Déficit</th><th>Riesgo</th>
+                                    </tr></thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Shipping API Modal -->
+    <div class="modal-overlay hidden" id="webhook-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-truck-fast"></i> Conectar API Logística (Hackathon)</h2>
+                <button class="modal-close" id="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-desc">El proyecto ya está integrado con la Shipping Status API proporcionada en el enunciado para priorizar incidencias de última milla.</p>
+
+                <div class="code-block">
+                    <div class="code-label">ENDPOINT EXTERNO</div>
+                    <code>GET https://lkuutmnykcnbfmbpopcu.functions.supabase.co/api/shipping-status/{order_id}</code>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-label">HEADERS OBLIGATORIOS</div>
+                    <pre>X-Candidate-Id: SCF-2026-XXXX</pre>
+                </div>
+
+                <div class="webhook-status" id="webhook-status">
+                    <div class="status-indicator">
+                        <span class="pulse"></span>
+                        <span>Candidate ID Configurado: <strong id="wh-status-text">Cargando...</strong></span>
+                    </div>
+                    <span id="wh-events-count"></span>
+                </div>
+
+                <button class="primary-action-btn" id="test-webhook-btn">
+                    <i class="fas fa-bolt"></i> Testear Conexión API
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
