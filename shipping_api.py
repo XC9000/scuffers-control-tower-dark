@@ -11,7 +11,7 @@ SHIPPING_API_BASE_URL = "https://lkuutmnykcnbfmbpopcu.functions.supabase.co/api/
 
 def get_candidate_id():
     # Use environment variable, fallback to a default if not set for demo purposes
-    return os.environ.get('SCUFFERS_CANDIDATE_ID', 'SCF-2026-DEMO')
+    return os.environ.get('SCUFFERS_CANDIDATE_ID', 'SCF-2026-6594')
 
 def fetch_shipping_status(order_id):
     """
