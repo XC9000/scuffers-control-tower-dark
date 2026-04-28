@@ -16,7 +16,7 @@ import os
 from collections import defaultdict
 from datetime import datetime
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'scuffers_all_mock_data', 'candidate_csvs')
+DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
 # ─────────────────────────────────────────────────
 # 1. DATA LOADING — robust to dirty/incomplete data
