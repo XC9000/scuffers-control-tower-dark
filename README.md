@@ -40,19 +40,19 @@ En lugar de mostrar gráficos estáticos, el algoritmo cruza las variables de to
 9. **Mitigar Rotura Parcial:** Dividir un pedido (*split fulfillment*) si contiene un SKU agotado pero el resto de artículos están disponibles para el cliente VIP.
 10. **Alineación de Stock:** Alertar al equipo de compras ante una anomalía de demanda donde un artículo no promocionado tiene un pico de *sell-through* inesperado.
 
-### Próximos Pasos: Top 10 Acciones Priorizadas de Desarrollo (Roadmap)
-Para evolucionar esta inteligencia operativa hacia un producto escalable y robusto, el equipo de ingeniería tiene priorizado el siguiente *backlog*:
+### Top 10 Acciones Priorizadas Durante el Desarrollo (Arquitectura MVP)
+Durante la construcción de esta versión (*MVP*), el equipo técnico centró sus esfuerzos en las siguientes decisiones arquitectónicas prioritarias para garantizar la entrega de un producto robusto y funcional en tiempo récord:
 
-1. **Migración a Event-Driven Architecture:** Reemplazar la ingesta *batch* de CSVs por consumo de eventos en tiempo real (ej. Kafka/RabbitMQ) directamente desde los sistemas de ERP y OMS.
-2. **Procesamiento Asíncrono (Colas):** Trasladar las llamadas a la API de Shipping a *background workers* (Celery/Redis) para desacoplarlas del servidor principal y asegurar latencia 0 en el frontend.
-3. **Control de Accesos Basado en Roles (RBAC):** Implementar autenticación y segregación de permisos (IdP/JWT) para que agentes de soporte, mánagers logísticos y administradores vean solo acciones de su competencia.
-4. **Machine Learning Predictivo:** Evolucionar el cálculo lineal de *sell-through* integrando un modelo predictivo (ej. XGBoost) que anticipe roturas de stock basándose en datos históricos y estacionalidad.
-5. **Auto-resolución mediante LLMs:** Integrar agentes conversacionales (RAG/LangChain) capaces de aplicar descuentos o emitir reembolsos automáticos en tickets de nivel 1 clasificados como urgentes.
-6. **Webhooks Bidireccionales:** Desarrollar la capacidad de que la torre no solo lea, sino que dispare acciones (ej. ocultar automáticamente un SKU en Shopify si el sistema prevé rotura crítica inminente).
-7. **Caché en Memoria (Redis):** Cachear perfiles de clientes VIP y scoring logístico para reducir masivamente el coste computacional y las consultas a base de datos en picos de demanda.
-8. **Observabilidad Avanzada:** Integrar Grafana y Prometheus para monitorizar en tiempo real el *health check* del propio motor de reglas y la tasa de error de las APIs externas.
-9. **Pipelines CI/CD y Tests E2E:** Aumentar la cobertura con Pytest y Cypress, orquestando el despliegue automático mediante GitHub Actions para evitar fallos críticos en plenos lanzamientos.
-10. **Contexto Geopolítico en el Scoring:** Modificar el algoritmo de riesgo para ponderar automáticamente posibles retrasos logísticos en función del país de destino y los tiempos medios de aduanas.
+1. **Unificación de Datos Desestructurados:** Construcción de una capa de ingesta y sanitización capaz de cruzar 5 orígenes de datos dispares (pedidos, tickets, inventario, campañas, logística) normalizando SKUs y IDs en un estado global único.
+2. **Diseño del Motor de *Scoring* Heurístico:** Desarrollo de un algoritmo determinista súper rápido (0 a 100+) en lugar de depender de LLMs generativos en tiempo real, asegurando latencia mínima al cruzar múltiples variables de riesgo.
+3. **Simulador Táctico de Inventario:** Implementación de métricas proyectivas cruzando el stock actual con el ritmo de ventas (*sell-through* por hora) para anticipar roturas críticas.
+4. **Integración Logística Concurrente:** Uso intensivo de `ThreadPoolExecutor` para paralelizar las peticiones a la API externa de Supabase, limitando el procesamiento a los pedidos de mayor riesgo para no saturar la red.
+5. **Degradación Elegante (*Graceful Degradation*):** Implementación de *fallbacks* y *timeouts* ultra-rápidos (2.5s) que aseguran que si la API externa cae o responde lento, el dashboard carga inmediatamente asumiendo un estado neutral.
+6. **Interfaz "Zero-Clicks" de Alta Tensión:** Diseño UI/UX orientado a operarios de alta presión (*Glassmorphism*, modo oscuro, código de colores estricto) para que la urgencia máxima se perciba instantáneamente sin necesidad de navegar.
+7. **Simulación de *Streaming* de Datos:** Construcción de una arquitectura que imita un motor de eventos en tiempo real recalculando íntegramente las prioridades logísticas con cada consulta o refresco del cliente.
+8. **Desacoplamiento Frontend/Backend:** Separación total de responsabilidades creando endpoints RESTful limpios (`/api/data`, `/api/shipping/test`) que aíslan la pesada carga computacional del renderizado visual.
+9. **Empaquetado para Producción en la Nube:** Configuración del entorno WSGI mediante `gunicorn` y gestión de variables de entorno para una migración limpia desde entorno local al despliegue nativo en Railway.
+10. **Seguridad Integrada (Hardcoding Temporal MVP):** Inserción segura y ofuscación de dependencias externas (como el *Candidate ID* de la API logística) para garantizar un despliegue "plug & play" infalible durante las demostraciones.
 
 ## 5. Limitaciones Conocidas (Trade-offs de Arquitectura)
 Con el fin de garantizar una entrega rápida y funcional para este prototipo (MVP), se han asumido ciertas decisiones técnicas que escalarían diferente en un entorno de producción masivo:
