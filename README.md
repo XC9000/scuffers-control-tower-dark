@@ -4,7 +4,11 @@
 > 🖥️ **Demo en Vivo (Despliegue Full-Stack):** [https://scuffers-control-tower-dark-production.up.railway.app/](https://scuffers-control-tower-dark-production.up.railway.app/)
 > 📦 **Repositorio Oficial:** [https://github.com/XC9000/scuffers-control-tower-dark](https://github.com/XC9000/scuffers-control-tower-dark)
 ## 1. Resumen Ejecutivo
-**Scuffers AI Ops Control Tower** es un sistema inteligente diseñado para resolver el caos operativo durante lanzamientos de alta demanda (drops). En lugar de abrumar al equipo con paneles llenos de gráficas estáticas, el sistema ingesta datos imperfectos de múltiples fuentes (inventario, pedidos, atención al cliente, logística) y los transforma en un **Top 10 de acciones quirúrgicas priorizadas**. Responde en tiempo real a la pregunta: *"¿Qué es lo más importante que debe hacer operaciones ahora mismo?"* garantizando la protección de clientes clave (VIP) y la prevención de roturas de stock.
+**Scuffers AI Ops Control Tower** es una capa de inteligencia operativa construida sobre un stack basado en Python, automatización y agentes, que integra múltiples fuentes de datos —CSV operativos, señales de negocio y estado logístico en tiempo real vía API— para orquestar decisiones durante lanzamientos de alta demanda.
+
+La arquitectura combina pipelines de datos ligeros, lógica de scoring interpretable y agentes automatizados que priorizan riesgos, generan acciones y mantienen el flujo operativo sin intervención manual constante.
+
+El sistema no solo consolida información, sino que la transforma en decisiones ejecutables, adaptándose dinámicamente con nuevas señales como el estado de *shipping*, para reforzar la capacidad del equipo de operaciones en escenarios de máxima presión.
 
 ## 2. Enfoque y Arquitectura
 Arquitectura **ligera, rápida y libre de fricciones** (sin dependencias pesadas), ideal para despliegues ágiles:
