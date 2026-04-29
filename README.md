@@ -1,8 +1,10 @@
 # 🚀 Scuffers AI Ops Control Tower
 **Entregable Final - UDIA × ESIC Hackathon**
 
-> 🖥️ **Demo en Vivo (Despliegue Full-Stack):** [https://scuffers-control-tower-dark-production.up.railway.app/](https://scuffers-control-tower-dark-production.up.railway.app/)
+> 🖥️ **Demo en Vivo (Despliegue Full-Stack Recomendado):** [https://scuffers-control-tower-dark-production.up.railway.app/](https://scuffers-control-tower-dark-production.up.railway.app/)
 > 📦 **Repositorio Oficial:** [https://github.com/XC9000/scuffers-control-tower-dark](https://github.com/XC9000/scuffers-control-tower-dark)
+> 
+> *<small>💡 **Nota del desarrollador:** Existe una [Versión Light (Frontend-only)](https://xc9000.github.io/scuffers-ai-ops-control-tower/) publicada en GitHub Pages ([Repo Alternativo](https://github.com/XC9000/scuffers-ai-ops-control-tower)). Sin embargo, **se recomienda evaluar y puntuar esta versión Full-Stack (Dark)**, ya que es la original y la única que contiene todo el cerebro backend en Python y la integración concurrente real con la API logística que exige el hackathon.</small>*
 ## 1. Resumen Ejecutivo
 **Scuffers AI Ops Control Tower** es una capa de inteligencia operativa construida sobre un stack basado en Python, automatización y agentes, que integra múltiples fuentes de datos —CSV operativos, señales de negocio y estado logístico en tiempo real vía API— para orquestar decisiones durante lanzamientos de alta demanda.
 
