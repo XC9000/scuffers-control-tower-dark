@@ -37,8 +37,8 @@ def fetch_shipping_status(order_id):
     }
 
     try:
-        # Timeout set to 0.8s to keep the pipeline fast
-        response = requests.get(url, headers=headers, timeout=0.8)
+        # Timeout set to 2.5s
+        response = requests.get(url, headers=headers, timeout=2.5)
         
         if response.status_code == 200:
             data = response.json()
