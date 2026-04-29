@@ -26,13 +26,19 @@ Arquitectura **ligera, rápida y libre de fricciones** (sin dependencias pesadas
 > **O puedes ver la versión ya desplegada en la nube aquí:**
 > [https://scuffers-control-tower-dark-production.up.railway.app/](https://scuffers-control-tower-dark-production.up.railway.app/)
 
-## 4. Top 10 Acciones Priorizadas (Heurística del Motor)
-El sistema no escupe datos brutos; aplica un modelo de *scoring* dinámico (escala de 0 a 100+) que cruza variables logísticas, de inventario y de atención al cliente para determinar qué requiere intervención humana inmediata. Las acciones priorizadas se centran en:
-1. **Protección de Clientes VIP y Leales:** Intervención inmediata ante cualquier riesgo de retraso logístico o retención en aduanas.
-2. **Mitigación de Stockouts Críticos:** Reabastecimiento urgente de SKUs con inventario ≤ 2 unidades o un *sell-through* superior al 70%.
-3. **Resolución de Tickets Severos:** Escalado automático de incidencias de soporte marcadas como urgentes o que presentan un fuerte sentimiento negativo.
-4. **Desbloqueo Financiero:** Revisión prioritaria de pedidos de alto valor (>€120) retenidos por procesos de *payment_review*.
-5. **Gestión de Campañas (High Pressure):** Asignación rápida de recursos logísticos cuando las campañas en curso superan los umbrales operativos.
+## 4. Top 10 Acciones Priorizadas (Ejemplos del Dashboard)
+En lugar de mostrar gráficos estáticos, el algoritmo cruza las variables de todas las fuentes y escupe literalmente el **Top 10 de cosas que el equipo de Operaciones debe hacer YA**. Ejemplos de las acciones que genera la torre de control:
+
+1. **Atender Pedido ORD-XXXXX (VIP):** Cliente VIP (CLV >€300) con paquete paralizado por alto riesgo de retraso según la API Logística.
+2. **Reabastecimiento Urgente (SKU Crítico):** Mover unidades de almacén central para la Sudadera Negra (stock ≤ 2 uds, sell-through > 70%).
+3. **Frenar Inversión en Ads:** Solicitar a marketing reducir la campaña activa en TikTok (intensidad *very_high*) para un SKU a 15 minutos del *stockout*.
+4. **Resolver Bloqueo Financiero:** Revisar fraude/pago en pedido atascado en *payment_review* de alto valor (>€120).
+5. **Apaciguar Cliente At-Risk:** Intervenir ticket de soporte urgente con sentimiento negativo de un usuario con alta probabilidad de abandono (*churn*).
+6. **Desbloquear Envío Retenido:** Revisión manual logística detectada por la API de Shipping para un pedido internacional de alto volumen.
+7. **Priorizar Empaquetado:** Alertar a almacén para empaquetar de inmediato pedidos de clientes Leales afectados por fallos de la pasarela de pago.
+8. **Compensación Proactiva:** Enviar código de descuento automático a clientes atrapados en incidencias aduaneras antes de que abran un ticket de soporte.
+9. **Mitigar Rotura Parcial:** Dividir un pedido (*split fulfillment*) si contiene un SKU agotado pero el resto de artículos están disponibles para el cliente VIP.
+10. **Alineación de Stock:** Alertar al equipo de compras ante una anomalía de demanda donde un artículo no promocionado tiene un pico de *sell-through* inesperado.
 
 ## 5. Limitaciones Conocidas (Trade-offs de Arquitectura)
 Con el fin de garantizar una entrega rápida y funcional para este prototipo (MVP), se han asumido ciertas decisiones técnicas que escalarían diferente en un entorno de producción masivo:
