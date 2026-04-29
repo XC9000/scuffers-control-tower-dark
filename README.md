@@ -40,6 +40,20 @@ En lugar de mostrar gráficos estáticos, el algoritmo cruza las variables de to
 9. **Mitigar Rotura Parcial:** Dividir un pedido (*split fulfillment*) si contiene un SKU agotado pero el resto de artículos están disponibles para el cliente VIP.
 10. **Alineación de Stock:** Alertar al equipo de compras ante una anomalía de demanda donde un artículo no promocionado tiene un pico de *sell-through* inesperado.
 
+### Próximos Pasos: Top 10 Acciones Priorizadas de Desarrollo (Roadmap)
+Para evolucionar esta inteligencia operativa hacia un producto escalable y robusto, el equipo de ingeniería tiene priorizado el siguiente *backlog*:
+
+1. **Migración a Event-Driven Architecture:** Reemplazar la ingesta *batch* de CSVs por consumo de eventos en tiempo real (ej. Kafka/RabbitMQ) directamente desde los sistemas de ERP y OMS.
+2. **Procesamiento Asíncrono (Colas):** Trasladar las llamadas a la API de Shipping a *background workers* (Celery/Redis) para desacoplarlas del servidor principal y asegurar latencia 0 en el frontend.
+3. **Control de Accesos Basado en Roles (RBAC):** Implementar autenticación y segregación de permisos (IdP/JWT) para que agentes de soporte, mánagers logísticos y administradores vean solo acciones de su competencia.
+4. **Machine Learning Predictivo:** Evolucionar el cálculo lineal de *sell-through* integrando un modelo predictivo (ej. XGBoost) que anticipe roturas de stock basándose en datos históricos y estacionalidad.
+5. **Auto-resolución mediante LLMs:** Integrar agentes conversacionales (RAG/LangChain) capaces de aplicar descuentos o emitir reembolsos automáticos en tickets de nivel 1 clasificados como urgentes.
+6. **Webhooks Bidireccionales:** Desarrollar la capacidad de que la torre no solo lea, sino que dispare acciones (ej. ocultar automáticamente un SKU en Shopify si el sistema prevé rotura crítica inminente).
+7. **Caché en Memoria (Redis):** Cachear perfiles de clientes VIP y scoring logístico para reducir masivamente el coste computacional y las consultas a base de datos en picos de demanda.
+8. **Observabilidad Avanzada:** Integrar Grafana y Prometheus para monitorizar en tiempo real el *health check* del propio motor de reglas y la tasa de error de las APIs externas.
+9. **Pipelines CI/CD y Tests E2E:** Aumentar la cobertura con Pytest y Cypress, orquestando el despliegue automático mediante GitHub Actions para evitar fallos críticos en plenos lanzamientos.
+10. **Contexto Geopolítico en el Scoring:** Modificar el algoritmo de riesgo para ponderar automáticamente posibles retrasos logísticos en función del país de destino y los tiempos medios de aduanas.
+
 ## 5. Limitaciones Conocidas (Trade-offs de Arquitectura)
 Con el fin de garantizar una entrega rápida y funcional para este prototipo (MVP), se han asumido ciertas decisiones técnicas que escalarían diferente en un entorno de producción masivo:
 * **Ingesta Estática vs Streaming:** Actualmente el motor ingesta *snapshots* mediante archivos CSV locales. En producción, esto se sustituiría por un bus de eventos (ej. Kafka, RabbitMQ) para streaming de datos en tiempo real.
