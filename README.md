@@ -4,13 +4,15 @@
 > 🖥️ **Demo en Vivo (Despliegue Full-Stack Recomendado):** [https://scuffers-control-tower-dark-production.up.railway.app/](https://scuffers-control-tower-dark-production.up.railway.app/)
 > 📦 **Repositorio Oficial:** [https://github.com/XC9000/scuffers-control-tower-dark](https://github.com/XC9000/scuffers-control-tower-dark)
 > 
-> *<small>💡 **Nota del desarrollador:** Existe una [Versión Light (Frontend-only)](https://xc9000.github.io/scuffers-ai-ops-control-tower/) publicada en GitHub Pages ([Repo Alternativo](https://github.com/XC9000/scuffers-ai-ops-control-tower)). Sin embargo, **se recomienda evaluar y puntuar esta versión Full-Stack (Dark)**, ya que es la original y la única que contiene todo el cerebro backend en Python y la integración concurrente real con la API logística que exige el hackathon.</small>*
+> *<small>(Versión Light [Frontend-only] disponible [aquí](https://xc9000.github.io/scuffers-ai-ops-control-tower/))</small>*
 ## 1. Resumen Ejecutivo
 **Scuffers AI Ops Control Tower** es una capa de inteligencia operativa construida sobre un stack basado en Python, automatización y agentes, que integra múltiples fuentes de datos —CSV operativos, señales de negocio y estado logístico en tiempo real vía API— para orquestar decisiones durante lanzamientos de alta demanda.
 
 La arquitectura combina pipelines de datos ligeros, lógica de scoring interpretable y agentes automatizados que priorizan riesgos, generan acciones y mantienen el flujo operativo sin intervención manual constante.
 
 El sistema no solo consolida información, sino que la transforma en decisiones ejecutables, adaptándose dinámicamente con nuevas señales como el estado de *shipping*, para reforzar la capacidad del equipo de operaciones en escenarios de máxima presión.
+
+También incluye potencial integración con mas APIs y BBDD de Scuffers (por ejemplo de pasados drops) para hacer análisis con agentes IA y predecir fechas ideales, cantidad de demanda, stock específico por prenda a preparar, para prevenir bottlenecks y saturación durante futuros drops.
 
 ## 2. Enfoque y Arquitectura
 Arquitectura **ligera, rápida y libre de fricciones** (sin dependencias pesadas), ideal para despliegues ágiles:
