@@ -18,3 +18,6 @@ Arquitectura **ligera, rápida y libre de fricciones** (sin dependencias pesadas
 2. Instala las dependencias: `pip install -r requirements.txt`
 3. Ejecuta el servidor: `python app.py`
 4. Abre el navegador en `http://localhost:8080`
+
+> **O puedes ver la versión ya desplegada en la nube aquí:**
+> [https://scuffers-control-tower-dark-production.up.railway.app/](https://scuffers-control-tower-dark-production.up.railway.app/)
